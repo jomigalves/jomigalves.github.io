@@ -1,2 +1,2 @@
-# jomigalves.github.io
-Here I share my reporst and works.
+# Readme
+This is my open repository where I share my work.

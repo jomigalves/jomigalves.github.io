@@ -2835,7 +2835,7 @@ div.tocify {
 <h1 class="title toc-ignore">Exploratory Data Analysis</h1>
 <h3 class="subtitle">Analysis of SIHSUS data on State of Pernambuco, Brazil</h3>
 <h4 class="author">João Miguel Alves, Rafaela Leal Silva, Rita Amorim</h4>
-<h4 class="date">28/10/2020</h4>
+<h4 class="date">29/10/2020</h4>
 
 </div>
 
@@ -2890,13 +2890,17 @@ for (filename in filenames) {
 <pre class="r"><code>setwd(&quot;C:/HEADS/DATA/CSV_files&quot;) 
 dataset &lt;- ldply(list.files(), read.csv, header=TRUE)
 dim(dataset)</code></pre>
-<pre><code>## [1] 1635485      58</code></pre>
-<p>Our data set was comprised of 1635485 observations referring to the years 2014 to 2016, distributed as follows:</p>
-<pre class="r"><code>#table(dataset$ANO_CMPT)
-#table(dataset$ANO_CMPT, dataset$MES_CMPT)
-ds &lt;- as.data.frame.matrix(table(dataset$ANO_CMPT, dataset$MES_CMPT))
-months &lt;- c(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;, &quot;11&quot;, &quot;12&quot;)
-formattable(ds, list(area(col = months) ~ normalize_bar(&quot;lightblue&quot;, 0.4)))</code></pre>
+<pre><code>## [1] 1635485     114</code></pre>
+<p>Our data set was comprised of 1635485 observations referring to the years 2014 to 2016. A simple cross table on months and years yields the following frequencies:</p>
+<pre class="r"><code>table(dataset$ANO_CMPT, dataset$MES_CMPT)</code></pre>
+<pre><code>##       
+##            1     2     3     4     5     6     7     8     9    10    11    12
+##   2014 42598 42608 43123 45467 47734 46470 47183 47638 48923 48180 47033 44171
+##   2015 44063 41482 46610 46490 47260 46805 45755 46450 44514 44387 44685 42656
+##   2016 43928 42944 45795 45223 46872 46221 47300 48002 46759 44988 42497 42671</code></pre>
+<p>The same result can be presented with <code>formattable()</code> for improved aesthetics:</p>
+<pre class="r"><code>periods &lt;- as.data.frame.matrix(table(dataset$ANO_CMPT, dataset$MES_CMPT))
+formattable(periods, list(area(col = as.character(1:12)) ~ normalize_bar(&quot;lightblue&quot;, 0.4)))</code></pre>
 <table class="table table-condensed">
 <thead>
 <tr>
@@ -3066,7 +3070,7 @@ formattable(ds, list(area(col = months) ~ normalize_bar(&quot;lightblue&quot;, 0
 </tr>
 </tbody>
 </table>
-<p>From function <code>dim()</code> we can observe that our data set was comprised of 58 variables. Having consulted the variables dictionary, we have opted to discard any variables for which no description was provided, as well as any variables carrying meaningless data for our analysis. Also variables constituted uniquely by <code>NA</code> values were discarded. For this step we have used <code>dplyr</code> package.</p>
+<p>From function <code>dim()</code> we can observe that our data set was comprised of 114 variables. Having consulted the variables dictionary, we have opted to discard any variables for which no description was provided, as well as any variables carrying meaningless data for our analysis. Also variables constituted uniquely by <code>NA</code> values were discarded. For this step we have used <code>dplyr</code> package.</p>
 <pre class="r"><code>#--------------------------------------------------------------
 # Redefine dataset only with meaningful variables
 #--------------------------------------------------------------
@@ -3082,7 +3086,7 @@ dataset &lt;- dplyr::select(dataset, X, UF_ZI, ANO_CMPT, MES_CMPT, ESPEC, CGC_HO
                          DIAGSEC4, DIAGSEC5, DIAGSEC6, DIAGSEC7, TPDISEC1, 
                          TPDISEC2, TPDISEC3, TPDISEC4, TPDISEC5, TPDISEC6, 
                          TPDISEC7)</code></pre>
-<p>This process trimmed down our data set from 58 to 58 meaningful variables.</p>
+<p>This process trimmed down our data set from 114 to 58 meaningful variables.</p>
 <p>As a next step, we have identified categorical and numerical variables, and redefined them accordingly as <code>factor</code> or as <code>integer</code>. Text variables automatically identified as <code>character</code> were left unchanged.</p>
 <pre class="r"><code>#--------------------------------------------------------------
 # Identify columns to be AS.FACTOR

@@ -1823,8 +1823,8 @@ div.tocify {
 
 <p><br><br></p>
 <hr />
-<div id="group-stratification" class="section level1">
-<h1>3-Group Stratification</h1>
+<div id="sample-stratification" class="section level1">
+<h1>Sample Stratification</h1>
 <p>We start by stratifying the sample according to notification habits, based on the answers provided in questions 8 and 9. We have defined 3 groups as follows:</p>
 <pre class="r"><code>strata.table &lt;- as.data.frame(
   cbind(freq = table(ds$Stratum),
@@ -2025,6 +2025,9 @@ summary(aov.test.23)</code></pre>
 </ul>
 <p>We compare responses of both groups to each question with Mann–Whitney U test, considering that Likert scale values are ordinal. P-values &lt; 0.05 suggest that both groups have different attitudes towards the question asked.</p>
 <p><em>Note: here we opt to use a non-parametric test such as Mann–Whitney U test, considering that a 5-point likert scale is not a continuous variable but rather an ordinal categorical one. Nonetheless, this interpretation is not universal, with some researchers opting to treat Likert scales as continuous variables.</em></p>
+<p><br></p>
+<p>From the table below it can be noted that for question “Q01. I am familiar with the Portuguese Pharmacovigilance System.” both groups have different attitudes toward this topic (p &lt; 0.001)</p>
+<p>In contrast, question “Q07. Pharmacovigilance is an important activity in the drug life cycle.” appears to trigger similar responses between both groups (p = 0.634).</p>
 <pre class="r"><code># Define questions to analyse
 questions &lt;- 1:35
 

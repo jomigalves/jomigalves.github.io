@@ -2090,13 +2090,17 @@ result %&gt;%
   kableExtra::kbl(
     align = c(&quot;l&quot;, &quot;c&quot;, &quot;c&quot;,&quot;c&quot;), 
     col.names = adjusted.names,
-    caption =  &quot;Median, IQR and Mann-Whitney U test p-values between groups for each question.&quot;
+    caption = 
+      paste(&quot;Median, IQR and Mann-Whitney U test p-values between groups for each question.&quot;,
+      &quot;All participants from each group responded to all 35 questions.&quot;,
+      &quot;Non-regular notifiers: n=175. Regular notifiers: n=42.&quot;,
+      &quot;Likert scale: 1 = Strongly disagree, 2 = Disagree,  3 = Neither,  4 = Agree,  5 = Strongly Agree.&quot;)
     ) %&gt;%
   kableExtra::kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;)) %&gt;%
   kableExtra:: kable_classic(full_width = T, html_font = &quot;Cambria&quot;)</code></pre>
 <table class="table table-striped table-hover table-condensed lightable-classic" style="margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
 <caption>
-Median, IQR and Mann-Whitney U test p-values between groups for each question.
+Median, IQR and Mann-Whitney U test p-values between groups for each question. All participants from each group responded to all 35 questions. Non-regular notifiers: n=175. Regular notifiers: n=42. Likert scale: 1 = Strongly disagree, 2 = Disagree, 3 = Neither, 4 = Agree, 5 = Strongly Agree.
 </caption>
 <thead>
 <tr>

@@ -2069,11 +2069,11 @@ p.values &lt;- sapply(seq_along(questions)+11, FUN = function(x){
   })
 p.values &lt;- ifelse(p.values &lt; 0.001, &quot;&lt; 0.001&quot;, format(round(p.values, 3), nsmall = 3))
 
-# ...and p-values with Bonferroni correction
-p.values.bonf &lt;- sapply(seq_along(questions)+11, FUN = function(x){
-  pairwise.wilcox.test(ds[[x]], ds$Stratum2, p.adjust.method = &quot;bonferroni&quot;)$p.value
-  })
-p.values.bonf &lt;- ifelse(p.values.bonf &lt; 0.001, &quot;&lt; 0.001&quot;, format(round(p.values.bonf, 3), nsmall = 3))
+# # ...and p-values with Bonferroni correction
+# p.values.bonf &lt;- sapply(seq_along(questions)+11, FUN = function(x){
+#   pairwise.wilcox.test(ds[[x]], ds$Stratum2, p.adjust.method = &quot;bonferroni&quot;)$p.value
+#   })
+# p.values.bonf &lt;- ifelse(p.values.bonf &lt; 0.001, &quot;&lt; 0.001&quot;, format(round(p.values.bonf, 3), nsmall = 3))
 
 
 
@@ -2082,33 +2082,35 @@ result &lt;- data.frame(
   Question = names(ds)[questions+11],
   Groups_12 = groups_12.stats$summary,
   Group_3 = group_3.stats$summary,
-  P_value = p.values,
-  P_value_bonf = p.values.bonf
+  P_value = p.values
+  # , P_value_bonf = p.values.bonf
 )
 
 adjusted.names &lt;- c(
   &quot;Question&quot;,
   &quot;Non-regular notifiers (median, [IQR]) n=175&quot;,
   &quot;Regular notifiers (median, [IQR]) n=42&quot;,
-  &quot;Mann-Whitney U test&quot;,
-  &quot;Bonferroni-corrected Mann–Whitney U-test&quot;
+  &quot;Mann-Whitney U test&quot;
+  # , &quot;Bonferroni-corrected Mann–Whitney U-test&quot;
 )
 
 result %&gt;%
   kableExtra::kbl(
-    align = c(&quot;l&quot;, &quot;c&quot;, &quot;c&quot;,&quot;c&quot;, &quot;c&quot;), 
+    align = c(&quot;l&quot;, &quot;c&quot;, &quot;c&quot;,&quot;c&quot;), 
     col.names = adjusted.names,
     caption = 
       paste(&quot;Median, IQR and Mann-Whitney U test p-values between groups for each question.&quot;,
       &quot;All participants from each group responded to all 35 questions.&quot;,
       # &quot;Non-regular notifiers: n=175. Regular notifiers: n=42.&quot;,
-      &quot;Likert scale: 1 = Strongly disagree, 2 = Disagree,  3 = Neither,  4 = Agree,  5 = Strongly Agree.&quot;)
+      &quot;With Bonferroni&#39;s correction, a p-value &lt; 0.001 indicates a significant difference.&quot;,
+      &quot;Likert scale: 1 = Strongly disagree, 2 = Disagree,  3 = Neither,  4 = Agree,  5 = Strongly Agree.&quot;
+      )
     ) %&gt;%
   kableExtra::kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;)) %&gt;%
   kableExtra:: kable_classic(full_width = T, html_font = &quot;Cambria&quot;)</code></pre>
 <table class="table table-striped table-hover table-condensed lightable-classic" style="margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
 <caption>
-Median, IQR and Mann-Whitney U test p-values between groups for each question. All participants from each group responded to all 35 questions. Likert scale: 1 = Strongly disagree, 2 = Disagree, 3 = Neither, 4 = Agree, 5 = Strongly Agree.
+Median, IQR and Mann-Whitney U test p-values between groups for each question. All participants from each group responded to all 35 questions. With Bonferroni’s correction, a p-value &lt; 0.001 indicates a significant difference. Likert scale: 1 = Strongly disagree, 2 = Disagree, 3 = Neither, 4 = Agree, 5 = Strongly Agree.
 </caption>
 <thead>
 <tr>
@@ -2124,9 +2126,6 @@ Regular notifiers (median, [IQR]) n=42
 <th style="text-align:center;">
 Mann-Whitney U test
 </th>
-<th style="text-align:center;">
-Bonferroni-corrected Mann–Whitney U-test
-</th>
 </tr>
 </thead>
 <tbody>
@@ -2139,9 +2138,6 @@ Q01. I am familiar with the Portuguese Pharmacovigilance System.
 </td>
 <td style="text-align:center;">
 4 [3, 5]
-</td>
-<td style="text-align:center;">
-&lt; 0.001
 </td>
 <td style="text-align:center;">
 &lt; 0.001
@@ -2160,9 +2156,6 @@ Q02. I am familiar with the existence of the Porto Pharmacovigilance Centre.
 <td style="text-align:center;">
 0.170
 </td>
-<td style="text-align:center;">
-0.170
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -2173,9 +2166,6 @@ Q03. I am familiar with the Portal RAM for reporting suspected ADR.
 </td>
 <td style="text-align:center;">
 4 [3, 5]
-</td>
-<td style="text-align:center;">
-&lt; 0.001
 </td>
 <td style="text-align:center;">
 &lt; 0.001
@@ -2194,9 +2184,6 @@ Q04. I am familiar with the different means for reporting suspected ADR.
 <td style="text-align:center;">
 0.003
 </td>
-<td style="text-align:center;">
-0.003
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -2207,9 +2194,6 @@ Q05. I am familiar with the update of the concept of ADR.
 </td>
 <td style="text-align:center;">
 4 [3, 5]
-</td>
-<td style="text-align:center;">
-&lt; 0.001
 </td>
 <td style="text-align:center;">
 &lt; 0.001
@@ -2228,9 +2212,6 @@ Q06. I am aware that users can report suspected ADR directly to the Portuguese P
 <td style="text-align:center;">
 0.059
 </td>
-<td style="text-align:center;">
-0.059
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -2241,9 +2222,6 @@ Q07. Pharmacovigilance is an important activity in the drug life cycle.
 </td>
 <td style="text-align:center;">
 5 [5, 5]
-</td>
-<td style="text-align:center;">
-0.634
 </td>
 <td style="text-align:center;">
 0.634
@@ -2262,9 +2240,6 @@ Q08. Pharmacovigilance is a minor activity in the care practice universe of the 
 <td style="text-align:center;">
 0.043
 </td>
-<td style="text-align:center;">
-0.043
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -2275,9 +2250,6 @@ Q09. Reporting a suspected ADR is a simple and intuitive process.
 </td>
 <td style="text-align:center;">
 4 [3, 4]
-</td>
-<td style="text-align:center;">
-0.012
 </td>
 <td style="text-align:center;">
 0.012
@@ -2296,9 +2268,6 @@ Q10. Reporting a suspected ADR is a fast process.
 <td style="text-align:center;">
 0.039
 </td>
-<td style="text-align:center;">
-0.039
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -2309,9 +2278,6 @@ Q11. I have a habit of reading the pharmacovigilance bulletin edited by INFARMED
 </td>
 <td style="text-align:center;">
 3 [3, 4]
-</td>
-<td style="text-align:center;">
-0.059
 </td>
 <td style="text-align:center;">
 0.059
@@ -2330,9 +2296,6 @@ Q12. I am familiar with my deontological and ethical obligations to report suspe
 <td style="text-align:center;">
 0.002
 </td>
-<td style="text-align:center;">
-0.002
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -2343,9 +2306,6 @@ Q13. I am careful to question the patient about ADR in my professional activity,
 </td>
 <td style="text-align:center;">
 4 [4, 5]
-</td>
-<td style="text-align:center;">
-&lt; 0.001
 </td>
 <td style="text-align:center;">
 &lt; 0.001
@@ -2364,9 +2324,6 @@ Q14. As a health professional, I have enough knowledge to identify a suspected A
 <td style="text-align:center;">
 &lt; 0.001
 </td>
-<td style="text-align:center;">
-&lt; 0.001
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -2377,9 +2334,6 @@ Q15. In my daily practice of interaction with the patient, I can easily detect s
 </td>
 <td style="text-align:center;">
 4 [3, 4]
-</td>
-<td style="text-align:center;">
-0.078
 </td>
 <td style="text-align:center;">
 0.078
@@ -2398,9 +2352,6 @@ Q16. I believe that the report suspected ADR to the Porto Pharmacovigilance Syst
 <td style="text-align:center;">
 0.016
 </td>
-<td style="text-align:center;">
-0.016
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -2411,9 +2362,6 @@ Q17. I fear that the reporter`s confidentiality may be broken during the ADR rep
 </td>
 <td style="text-align:center;">
 1 [1, 2]
-</td>
-<td style="text-align:center;">
-0.820
 </td>
 <td style="text-align:center;">
 0.820
@@ -2432,9 +2380,6 @@ Q18. I fear that the patient´s anonymity may be broken during the ADR report pr
 <td style="text-align:center;">
 0.588
 </td>
-<td style="text-align:center;">
-0.588
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -2445,9 +2390,6 @@ Q19. I fear that the adverse reaction may not be due to the suspected drug.
 </td>
 <td style="text-align:center;">
 3 [3, 4]
-</td>
-<td style="text-align:center;">
-0.112
 </td>
 <td style="text-align:center;">
 0.112
@@ -2466,9 +2408,6 @@ Q20. I only report an ADR if I am certain that it is related to the use of a par
 <td style="text-align:center;">
 0.002
 </td>
-<td style="text-align:center;">
-0.002
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -2479,9 +2418,6 @@ Q21. It is almost impossible to determine if a drug is responsible for a certain
 </td>
 <td style="text-align:center;">
 2 [1, 3]
-</td>
-<td style="text-align:center;">
-0.066
 </td>
 <td style="text-align:center;">
 0.066
@@ -2500,9 +2436,6 @@ Q22. When I know that a new drug has been introduced in the market, I am careful
 <td style="text-align:center;">
 0.125
 </td>
-<td style="text-align:center;">
-0.125
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -2513,9 +2446,6 @@ Q23. I am reluctant to be judged by the report of a suspected ADR.
 </td>
 <td style="text-align:center;">
 1 [1, 2]
-</td>
-<td style="text-align:center;">
-0.001
 </td>
 <td style="text-align:center;">
 0.001
@@ -2534,9 +2464,6 @@ Q24. I am reluctant to admit that it may have contributed to the occurrence of A
 <td style="text-align:center;">
 0.103
 </td>
-<td style="text-align:center;">
-0.103
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -2547,9 +2474,6 @@ Q25. The report of a single case is relevant to the knowledge of the safety prof
 </td>
 <td style="text-align:center;">
 4 [3, 5]
-</td>
-<td style="text-align:center;">
-0.452
 </td>
 <td style="text-align:center;">
 0.452
@@ -2568,9 +2492,6 @@ Q26. When it comes to an ADR described in the SmPC, I find it important to repor
 <td style="text-align:center;">
 0.056
 </td>
-<td style="text-align:center;">
-0.056
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -2581,9 +2502,6 @@ Q27. I find it important to report when it comes to an unexpected ADR (not descr
 </td>
 <td style="text-align:center;">
 5 [5, 5]
-</td>
-<td style="text-align:center;">
-0.031
 </td>
 <td style="text-align:center;">
 0.031
@@ -2602,9 +2520,6 @@ Q28. When it comes to a frequent ADR, I find it important to report.
 <td style="text-align:center;">
 0.879
 </td>
-<td style="text-align:center;">
-0.879
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -2615,9 +2530,6 @@ Q29. When it comes to a non−severe ADR, I find it important to report.
 </td>
 <td style="text-align:center;">
 5 [4, 5]
-</td>
-<td style="text-align:center;">
-0.066
 </td>
 <td style="text-align:center;">
 0.066
@@ -2636,9 +2548,6 @@ Q30. I report suspected ADR for the clinical impact that this information has on
 <td style="text-align:center;">
 0.043
 </td>
-<td style="text-align:center;">
-0.043
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -2649,9 +2558,6 @@ Q31. I believe that the spontaneous report of suspected ADR has regulatory conse
 </td>
 <td style="text-align:center;">
 5 [4, 5]
-</td>
-<td style="text-align:center;">
-0.004
 </td>
 <td style="text-align:center;">
 0.004
@@ -2670,9 +2576,6 @@ Q32. I report suspected ADR for the need to share experiences of my professional
 <td style="text-align:center;">
 0.019
 </td>
-<td style="text-align:center;">
-0.019
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -2683,9 +2586,6 @@ Q33. When it comes to a recent marketing authorization drug (&lt;2 years), I hav
 </td>
 <td style="text-align:center;">
 5 [4, 5]
-</td>
-<td style="text-align:center;">
-0.006
 </td>
 <td style="text-align:center;">
 0.006
@@ -2704,9 +2604,6 @@ Q34. The time taken to report is the determining factor not to report, or not re
 <td style="text-align:center;">
 0.042
 </td>
-<td style="text-align:center;">
-0.042
-</td>
 </tr>
 <tr>
 <td style="text-align:left;">
@@ -2717,9 +2614,6 @@ Q35. In view of a suspected ADR, I contact the pharmaceutical industry (e.g. Me
 </td>
 <td style="text-align:center;">
 3 [2, 4]
-</td>
-<td style="text-align:center;">
-0.650
 </td>
 <td style="text-align:center;">
 0.650

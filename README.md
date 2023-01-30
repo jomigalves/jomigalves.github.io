@@ -1,2 +1,3 @@
 # Readme
-This is my open repository where I test and share my work and reports.
+
+My open repository for sharing research and showcasing portfolio.
